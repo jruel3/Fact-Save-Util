@@ -1,0 +1,34 @@
+name: Build Installer
+
+on:
+  push:
+    tags: ['v*']
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build Go DLL
+        run: go build -buildmode=c-shared -o fact_logic.dll ./fact_logic.go
+
+      - name: Build Flutter
+        run: |
+          flutter pub get
+          flutter build windows --release
+
+      - name: Bundle DLL
+        run: copy fact_logic.dll build\windows\runner\Release\
+
+      - name: Compile Installer
+        uses: ayosec/iscc-action@v2
+        with:
+          filepath: installer_script.iss
+
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: build/installer/FactSaveUtil_Setup.exe
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
