@@ -1,4 +1,4 @@
 # Fact-Save-Util
 DLL written in Go, presented with a Flutter UI to copy Satisfactory save files.
 
-![Screenshot of Application](screenshots/v1.png)
+![Screenshot of Application](image_assets/v1.png)
