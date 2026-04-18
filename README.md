@@ -1,3 +1,2 @@
-# fact_game_copy
-
-A new Flutter project.
+# Fact-Save-Util
+DLL written in Go, presented with a Flutter UI to copy Satisfactory save files.
