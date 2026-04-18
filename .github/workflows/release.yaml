@@ -22,9 +22,9 @@ jobs:
         run: copy fact_logic.dll build\windows\runner\Release\
 
       - name: Compile Installer
-        uses: robm0/iscc-action@v1
-        with:
-          file: installer_script.iss
+        run: |
+          & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" installer_script.iss
+        shell: pwsh
 
       - name: Release
         uses: softprops/action-gh-release@v2
