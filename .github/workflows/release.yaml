@@ -22,9 +22,9 @@ jobs:
         run: copy fact_logic.dll build\windows\runner\Release\
 
       - name: Compile Installer
-        uses: ayosec/iscc-action@v2
+        uses: robm0/iscc-action@v1
         with:
-          filepath: installer_script.iss
+          file: installer_script.iss
 
       - name: Release
         uses: softprops/action-gh-release@v2
