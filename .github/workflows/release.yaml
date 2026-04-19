@@ -18,7 +18,19 @@ jobs:
           go mod tidy
           go build -buildmode=c-shared -o ../fact_logic.dll ./fact_logic.go
 
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: Check Flutter Path
+        run: |
+          where.exe flutter
+          flutter --version
+
       - name: Build Flutter
+        shell: pwsh
         run: |
           flutter pub get
           flutter build windows --release
