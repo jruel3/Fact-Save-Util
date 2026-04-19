@@ -35,14 +35,12 @@ jobs:
           flutter pub get
           flutter build windows --release
 
-      - name: List Files for Debugging
-        run: Get-ChildItem -Recurse build\windows
-
       - name: Bundle DLL
         shell: pwsh
         run: |
-          New-Item -ItemType Directory -Force -Path build\windows\x64\runner\Release\
-          Copy-Item -Path "go/fact_logic.dll" -Destination "build\windows\x64\runner\Release\"
+          if (Test-Path "fact_logic.dll") {
+            Copy-Item -Path "fact_logic.dll" -Destination "build\windows\x64\runner\Release\"
+          }
 
       - name: Compile Installer
         run: |

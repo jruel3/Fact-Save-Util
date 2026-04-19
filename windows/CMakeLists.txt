@@ -4,7 +4,7 @@ project(fact_game_copy LANGUAGES CXX)
 
 # The name of the executable created for the application. Change this to change
 # the on-disk name of your application.
-set(BINARY_NAME "fact_game_copy")
+set(BINARY_NAME "FactSaveUtil")
 
 # Explicitly opt in to modern CMake behaviors to avoid warnings with recent
 # versions of CMake.
