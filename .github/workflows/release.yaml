@@ -7,6 +7,8 @@ on:
 jobs:
   build:
     runs-on: windows-latest
+    permissions:
+      contents: write
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     steps:
@@ -47,9 +49,26 @@ jobs:
           & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" installer_script.iss
         shell: pwsh
 
-      - name: Release
-        uses: softprops/action-gh-release@v2
+      - name: Create Release and Upload Asset
+        uses: actions/github-script@v7
         with:
-          files: build/installer/FactSaveUtil_Setup.exe
+          script: |
+            const fs = require('fs');
+            const release = await github.rest.repos.createRelease({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              tag_name: context.ref.replace('refs/tags/', ''),
+              name: `Release ${context.ref.replace('refs/tags/', '')}`,
+              draft: false,
+              prerelease: false
+            });
+            
+            await github.rest.repos.uploadReleaseAsset({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              release_id: release.data.id,
+              name: 'FactSaveUtil_Setup.exe',
+              data: fs.readFileSync('build/installer/FactSaveUtil_Setup.exe')
+            });
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
