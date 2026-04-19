@@ -7,7 +7,9 @@ OutputDir=.\build\installer
 OutputBaseFilename=FactSaveUtil_Setup
 SetupIconFile=windows\runner\resources\app_icon.ico
 Compression=lzma
-SolidCompression=yes
+SolidCom
+
+Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
 Source: "build\windows\x64\runner\Release\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs
